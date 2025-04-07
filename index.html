@@ -5,23 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>다양한 AI 툴 접속 사이트</title>
     <style>
-      /* 스타일은 이전과 동일 */
+      /* 전체 스타일 초기화 */
       body {
         font-family: "Noto Sans KR", sans-serif;
         margin: 0;
         padding: 0;
-        background-color: #f4f6f8;
+        background-color: #e6f7ff; /* Light Cyan */
         display: flex;
         justify-content: center;
         align-items: center;
         min-height: 100vh;
-        color: #333;
+        color: #666;
       }
 
       .container {
-        background-color: #fff;
+        background-color: #f8f8ff; /* GhostWhite */
         border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* 연한 그림자 */
         padding: 48px;
         width: 85%;
         max-width: 960px;
@@ -32,54 +32,94 @@
         font-size: 2.5rem;
         font-weight: 700;
         margin-bottom: 24px;
+        color: #555;
       }
 
       p {
         font-size: 1.1rem;
         line-height: 1.7;
         margin-bottom: 32px;
+        color: #888;
+      }
+
+      /* 취향 선택 스타일 */
+      .preference-select {
+        margin-bottom: 32px;
+        text-align: left;
+        padding: 20px;
+        border: 1px solid #dcdcdc; /* Gainsboro */
+        border-radius: 8px;
+        background-color: #f0ffff; /* AliceBlue */
+      }
+
+      .preference-select h2 {
+        font-size: 1.5rem;
+        margin-bottom: 16px;
         color: #555;
       }
 
+      .preference-list {
+        display: flex;
+        flex-direction: column; /* 세로로 나열 */
+      }
+
+      .preference-list label {
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+        font-size: 1.1rem;
+        color: #777;
+        cursor: pointer; /* hover 시 커서 변경 */
+      }
+
+      .preference-list input[type="checkbox"] {
+        margin-right: 12px;
+        width: 20px;
+        height: 20px;
+      }
+
+      /* AI 툴 목록 스타일 */
       .ai-tool-list {
         display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        margin-bottom: 32px;
+        flex-direction: column; /* 세로로 변경 */
+        align-items: flex-start; /* 왼쪽 정렬 */
+        margin-top: 20px; /* 간격 추가 */
       }
 
       .ai-tool-item {
-        width: 200px;
-        margin: 16px;
-        text-align: center;
+        margin-bottom: 10px; /* 각 항목 간 간격 */
+        background-color: #e0ffff; /* 연한 청록색 배경 */
+        border-radius: 15px; /* 둥근 모서리 */
+        padding: 8px 16px; /* 패딩 */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 은은한 그림자 */
+        transition: background-color 0.3s ease; /* hover 효과 전환 */
       }
 
-      .ai-tool-item img {
-        max-width: 100%;
-        /* 이미지 높이를 일정하게 맞춰주면 더 보기 좋습니다 */
-        height: 60px; /* 로고들의 높이를 비슷하게 맞춥니다 (필요에 따라 조절) */
-        object-fit: contain; /* 이미지 비율을 유지하면서 영역에 맞춥니다 */
-        border-radius: 8px;
-        /* 그림자는 너무 강하지 않게 유지 */
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-        transition: transform 0.3s ease;
-      }
-
-      .ai-tool-item img:hover {
-        transform: scale(1.05);
+      .ai-tool-item:hover {
+        background-color: #b0e2ff; /* hover 시 배경색 변경 */
       }
 
       .ai-tool-item a {
-        display: block;
         text-decoration: none;
-        color: #333;
-        font-weight: 500;
-        margin-top: 12px; /* 이미지와의 간격 조정 */
+        color: #666; /* 기본 글자색 */
+        transition: color 0.3s ease;
       }
 
-      /* 유려한 버튼 스타일 (이전과 동일) */
+      .ai-tool-item a:hover {
+        color: #333; /* hover 시 글자색 진하게 */
+      }
+
+      /* 제거된 이전 개별 AI 툴 스타일 */
+      /*
+        .ai-tool-item a[href*="aistudio.google.com"] { ... }
+        .ai-tool-item a[href*="openai.com"] { ... }
+        .ai-tool-item a[href*="microsoft.com"] { ... }
+        .ai-tool-item a[href*="deepmind.google"] { ... }
+        */
+
+      /* 버튼 스타일 */
       button {
-        background-color: #007bff;
+        background-color: #6a5acd; /* Slate Blue */
         color: white;
         padding: 14px 32px;
         border: none;
@@ -91,15 +131,58 @@
       }
 
       button:hover {
-        background-color: #0056b3;
+        background-color: #483d8b; /* Dark Slate Blue */
         transform: translateY(-2px);
         box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
       }
 
+      /* 추가 내용 영역 스타일 */
       .additional-content {
         margin-top: 32px;
         font-size: 1.1rem;
         color: #777;
+      }
+
+      /* 제출 버튼 스타일 (연한 초록색) */
+      .preference-select button {
+        background-color: #98fb98; /* 연한 초록색 */
+        color: #333; /* 어두운 글자색 */
+        padding: 12px 24px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+        margin-top: 10px; /* 약간의 간격 추가 */
+      }
+
+      .preference-select button:hover {
+        background-color: #90ee90; /* 조금 더 진한 연두색 */
+      }
+
+      /* Custom Alert Message */
+      #customAlert {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #ffb6c1; /* Light Pink */
+        border: 1px solid #f08080; /* Light Coral */
+        color: #8b0000; /* Dark Red */
+        padding: 20px;
+        border-radius: 10px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        opacity: 0; /* 초기 투명도 0 */
+        transition: opacity 0.3s ease;
+        z-index: 1000; /* 다른 요소 위에 표시 */
+        display: none; /* 기본적으로 숨김 */
+      }
+
+      #customAlert.show {
+        display: block; /* 보이게 설정 */
+        opacity: 1; /* 투명도 1로 변경 */
       }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -108,54 +191,82 @@
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap"
       rel="stylesheet"
     />
+    <!-- 추가 글꼴 (Google Product Sans) -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Product+Sans:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
+    <!-- Custom Alert (전역 위치) -->
+    <div id="customAlert">최소 1개는 선택해야 합니다.</div>
+
     <div class="container">
       <h1>다양한 AI 툴을 만나보세요!</h1>
       <p>최고의 AI 툴들을 한 곳에서 경험하고 생산성을 향상시키세요.</p>
 
-      <!-- AI 툴 목록 -->
-      <div class="ai-tool-list">
-        <div class="ai-tool-item">
-          <a href="https://aistudio.google.com/" target="_blank">
-            <!-- *** 이미지 링크 변경: Google AI Studio (Gemini) 로고 SVG 사용 *** -->
-            <img
-              src="https://www.gstatic.com/aistudio/gemini/google_logo_light.svg"
-              alt="Google AI Studio"
-            />
-            Google AI Studio
-          </a>
-        </div>
-        <div class="ai-tool-item">
-          <a href="https://openai.com/" target="_blank">
-            <!-- *** 이미지 링크 변경: OpenAI 로고 (Wikimedia Commons SVG 기반 PNG) *** -->
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/OpenAI_logo.svg/120px-OpenAI_logo.svg.png"
-              alt="OpenAI"
-            />
-            OpenAI
-          </a>
-        </div>
-        <div class="ai-tool-item">
-          <a href="https://www.microsoft.com/ko-kr/ai" target="_blank">
-            <!-- *** 이미지 링크 변경: Microsoft AI 로고 (Microsoft 공식 뉴스룸) *** -->
-            <img
-              src="https://news.microsoft.com/wp-content/uploads/prod/sites/547/2024/01/Microsoft-AI-new-logo_RGB_Horizontal.png"
-              alt="Microsoft AI"
-            />
-            Microsoft AI
-          </a>
-        </div>
-        <div class="ai-tool-item">
-          <a href="https://deepmind.google/" target="_blank">
-            <!-- *** 이미지 링크 변경: DeepMind 로고 (공식 SVG) *** -->
-            <img
-              src="https://deepmind.google/images/branding/DeepMind-Logos-Colour-RGB.svg"
-              alt="DeepMind"
-            />
-            DeepMind
-          </a>
-        </div>
+      <!-- 취향 선택 섹션 -->
+      <div class="preference-select">
+        <h2>선호하는 AI 툴을 선택하세요</h2>
+        <form id="preferenceForm">
+          <div class="preference-list">
+            <label for="aiStudio">
+              <input
+                type="checkbox"
+                id="aiStudio"
+                name="preference"
+                value="AI Studio"
+              />
+              AI Studio
+            </label>
+            <label for="chatGPT">
+              <input
+                type="checkbox"
+                id="chatGPT"
+                name="preference"
+                value="ChatGPT"
+              />
+              ChatGPT
+            </label>
+            <label for="claude">
+              <input
+                type="checkbox"
+                id="claude"
+                name="preference"
+                value="Claude"
+              />
+              Claude
+            </label>
+            <label for="llama">
+              <input
+                type="checkbox"
+                id="llama"
+                name="preference"
+                value="Llama"
+              />
+              Llama
+            </label>
+          </div>
+          <button type="submit">제출</button>
+
+          <!-- AI 툴 목록 (순서대로 표시) -->
+          <div class="ai-tool-list">
+            <div class="ai-tool-item">
+              <a href="https://aistudio.google.com/" target="_blank"
+                >Google AI Studio</a
+              >
+            </div>
+            <div class="ai-tool-item">
+              <a href="https://openai.com/" target="_blank">OpenAI</a>
+            </div>
+            <div class="ai-tool-item">
+              <a href="https://www.anthropic.com/" target="_blank">Claude</a>
+            </div>
+            <div class="ai-tool-item">
+              <a href="https://llama2.ai/" target="_blank">Llama</a>
+            </div>
+          </div>
+        </form>
       </div>
 
       <!-- 추가 내용 영역 -->
@@ -165,8 +276,43 @@
         </p>
       </div>
 
-      <!-- 유려한 버튼 -->
+      <!-- 버튼 -->
       <button>더 많은 AI 툴 보기</button>
     </div>
+
+    <script>
+      // JavaScript
+      document
+        .getElementById("preferenceForm")
+        .addEventListener("submit", function (event) {
+          const checkboxes = document.querySelectorAll(
+            'input[name="preference"]'
+          );
+          let checked = false;
+          checkboxes.forEach((checkbox) => {
+            if (checkbox.checked) {
+              checked = true;
+            }
+          });
+
+          if (!checked) {
+            event.preventDefault(); // 폼 제출 막기
+
+            const alertBox = document.getElementById("customAlert");
+            alertBox.style.display = "block"; // 보이게 설정
+            alertBox.classList.add("show"); // 페이드 인
+
+            setTimeout(function () {
+              alertBox.classList.remove("show"); // 페이드 아웃
+              setTimeout(function () {
+                alertBox.style.display = "none"; // 숨김
+              }, 300); // 트랜지션 시간과 동일하게 설정
+            }, 3000);
+          } else {
+            // Here is where you may want to add additional javascript code
+            console.log("Thanks, The form has been submitted");
+          }
+        });
+    </script>
   </body>
 </html>
